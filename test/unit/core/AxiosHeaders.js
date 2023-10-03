@@ -6,11 +6,13 @@ describe('AxiosHeaders', function () {
   it('should support headers argument', function () {
     const headers = new AxiosHeaders({
       x: 1,
-      y: 2
+      y: 2,
+      z: undefined,
     });
 
     assert.strictEqual(headers.get('x'), '1');
     assert.strictEqual(headers.get('y'), '2');
+    assert.strictEqual(headers.get('z'), undefined);
   })
 
 

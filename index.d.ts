@@ -1,5 +1,6 @@
 // TypeScript Version: 4.7
 export type AxiosHeaderValue = AxiosHeaders | string | string[] | number | boolean | null;
+export type AxiosHeaderValueOut = string | string[] | undefined;
 
 interface RawAxiosHeaders {
   [key: string]: AxiosHeaderValue;
@@ -15,7 +16,7 @@ type AxiosHeaderParser = (this: AxiosHeaders, value: AxiosHeaderValue, header: s
 
 export class AxiosHeaders {
   constructor(
-      headers?: RawAxiosHeaders | AxiosHeaders | string
+      headers?: Partial<RawAxiosHeaders> | AxiosHeaders | string
   );
 
   [key: string]: any;
@@ -24,7 +25,7 @@ export class AxiosHeaders {
   set(headers?: RawAxiosHeaders | AxiosHeaders | string, rewrite?: boolean): AxiosHeaders;
 
   get(headerName: string, parser: RegExp): RegExpExecArray | null;
-  get(headerName: string, matcher?: true | AxiosHeaderParser): AxiosHeaderValue;
+  get(headerName: string, matcher?: true | AxiosHeaderParser): AxiosHeaderValueOut;
 
   has(header: string, matcher?: AxiosHeaderMatcher): boolean;
 
@@ -46,35 +47,35 @@ export class AxiosHeaders {
 
   setContentType(value: ContentType, rewrite?: boolean | AxiosHeaderMatcher): AxiosHeaders;
   getContentType(parser?: RegExp): RegExpExecArray | null;
-  getContentType(matcher?: AxiosHeaderMatcher): AxiosHeaderValue;
+  getContentType(matcher?: AxiosHeaderMatcher): AxiosHeaderValueOut;
   hasContentType(matcher?: AxiosHeaderMatcher): boolean;
 
   setContentLength(value: AxiosHeaderValue, rewrite?: boolean | AxiosHeaderMatcher): AxiosHeaders;
   getContentLength(parser?: RegExp): RegExpExecArray | null;
-  getContentLength(matcher?: AxiosHeaderMatcher): AxiosHeaderValue;
+  getContentLength(matcher?: AxiosHeaderMatcher): AxiosHeaderValueOut;
   hasContentLength(matcher?: AxiosHeaderMatcher): boolean;
 
   setAccept(value: AxiosHeaderValue, rewrite?: boolean | AxiosHeaderMatcher): AxiosHeaders;
   getAccept(parser?: RegExp): RegExpExecArray | null;
-  getAccept(matcher?: AxiosHeaderMatcher): AxiosHeaderValue;
+  getAccept(matcher?: AxiosHeaderMatcher): AxiosHeaderValueOut;
   hasAccept(matcher?: AxiosHeaderMatcher): boolean;
 
   setUserAgent(value: AxiosHeaderValue, rewrite?: boolean | AxiosHeaderMatcher): AxiosHeaders;
   getUserAgent(parser?: RegExp): RegExpExecArray | null;
-  getUserAgent(matcher?: AxiosHeaderMatcher): AxiosHeaderValue;
+  getUserAgent(matcher?: AxiosHeaderMatcher): AxiosHeaderValueOut;
   hasUserAgent(matcher?: AxiosHeaderMatcher): boolean;
 
   setContentEncoding(value: AxiosHeaderValue, rewrite?: boolean | AxiosHeaderMatcher): AxiosHeaders;
   getContentEncoding(parser?: RegExp): RegExpExecArray | null;
-  getContentEncoding(matcher?: AxiosHeaderMatcher): AxiosHeaderValue;
+  getContentEncoding(matcher?: AxiosHeaderMatcher): AxiosHeaderValueOut;
   hasContentEncoding(matcher?: AxiosHeaderMatcher): boolean;
 
   setAuthorization(value: AxiosHeaderValue, rewrite?: boolean | AxiosHeaderMatcher): AxiosHeaders;
   getAuthorization(parser?: RegExp): RegExpExecArray | null;
-  getAuthorization(matcher?: AxiosHeaderMatcher): AxiosHeaderValue;
+  getAuthorization(matcher?: AxiosHeaderMatcher): AxiosHeaderValueOut;
   hasAuthorization(matcher?: AxiosHeaderMatcher): boolean;
 
-  [Symbol.iterator](): IterableIterator<[string, AxiosHeaderValue]>;
+  [Symbol.iterator](): IterableIterator<[string, AxiosHeaderValueOut]>;
 }
 
 type CommonRequestHeadersList = 'Accept' | 'Content-Length' | 'User-Agent' | 'Content-Encoding' | 'Authorization';
